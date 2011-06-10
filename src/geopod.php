@@ -74,7 +74,8 @@
                 return "/api/" . self::API_VERSION . $target_path;
             }
             else {
-                return "/api/" . self::API_VERSION . $target_path . '?' . http_build_query($params, null, '&');
+                $query = http_build_query($params, null, '&');
+                return "/api/" . self::API_VERSION . $target_path . '?' . preg_replace('/%5B(?:[0-9]|[1-9][0-9]+)%5D=/', '%5B%5D=', $query);
             }
         }
         
